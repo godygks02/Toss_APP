@@ -1,0 +1,186 @@
+/* css/homestyle.css (전체 코드) */
+
+/* 1. 기본 초기화 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    
+    /* UI 폰트 */
+    font-family: 'Fredoka', sans-serif;
+    
+    /* 확대/스크롤 방지 */
+    touch-action: manipulation;
+}
+
+/* 2. 게임 화면 전체를 중앙에 배치 (배경 밖) */
+body {
+    display: grid;
+    place-items: center;
+}
+
+/* 3. ★ 핵심: 게임 화면 '틀' (고정 비율) */
+.start-container {  
+    /* (1) 자식(배경)의 'absolute' 기준점 */
+    position: relative; 
+    /* (2) 이 영역을 벗어나는 배경을 '잘라냄' (Clipping) */
+    overflow: hidden; 
+    z-index: 2; 
+    width: 100%;
+    height: 100%;
+    min-width: 340px;
+    max-width: 60vh;  
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* ★ 수정: 텍스트 스타일(font, color) 제거, 패딩 유지 */
+.game-title {
+    text-align: center;
+    flex-shrink: 0; 
+}
+
+/* ★ 추가: 로고 이미지 크기 및 스타일 */
+.logo {
+    max-width: 80%;
+    height: auto;   /* 이미지 비율 유지 */
+    
+    /* (선택) 로고가 너무 클 경우 최대 픽셀 지정 */
+    max-width: 300px; 
+}
+.title {
+    margin-top: -50px;
+    font-size: 2.5rem;
+    color: #282f37;
+    font-family: 'Fredoka',"sans-serif";
+    margin-bottom: 50px;
+}
+
+.game-menu {
+    flex-grow: 1; /* 남은 공간을 채움 */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+}
+
+.mode-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.mode-buttons a {
+    width: 100%;
+    max-width: 250px;
+    text-decoration: none;
+}
+
+.btn {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px 40px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    color: #FFFFFF;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.btn-easy { background: #00DACB; }
+.btn-hard { background: #FF8B77; }
+.btn-secondary {
+    background: #888888; /* 회색 계열 */
+}
+
+
+
+.instructions {
+    padding: 25px; /* 안쪽 여백 늘리기 */
+    background: #f4f4f4;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+
+    /* ★ (추가) 팝업창이므로 위치 기준점 설정 */
+    position: relative; 
+    
+    /* ★ (추가) 팝업창의 너비 설정 */
+    width: 90%;
+    max-width: 450px; 
+
+    /* ★ (추가) 내용이 길어지면 이 박스만 스크롤 */
+    max-height: 80vh; /* 화면 높이의 80% */
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+.instructions ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+.instructions li {
+    margin-bottom: 5px;
+}
+
+.modal-overlay {
+    /* (1) 부모(.start-container)를 100% 채움 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* (2) 반투명 검은색 배경 */
+    background-color: rgba(0, 0, 0, 0.6);
+    
+    /* (3) 자식(.instructions)을 정중앙에 배치 */
+    display: grid;
+    place-items: center;
+    
+    /* (4) 다른 모든 UI 위에 표시 (배경 z-index: 1) */
+    z-index: 10;
+    
+    /* (5) ★ JS로 제어하기 전까지 숨김 */
+    display: none; 
+}
+
+/* 2. JS가 이 클래스를 추가하면 팝업창이 보임 */
+.modal-overlay.show {
+    display: grid;
+}
+
+/* 3. 팝업창 내부의 닫기 버튼 (X) */
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    
+    font-size: 2.5rem;
+    color: #999;
+    
+    /* 버튼 기본 스타일 제거 */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #333;
+}
