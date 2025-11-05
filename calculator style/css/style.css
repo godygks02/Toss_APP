@@ -1,0 +1,440 @@
+/* css/style.css (새로운 전체 코드) */
+
+/* 1. 기본 스타일 및 폰트 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #fff;
+    overflow: hidden;
+    touch-action: manipulation;
+    font-family: 'Fredoka', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: #3a3a3a;
+}
+#game-content-wrapper {
+     z-index: 2;
+}
+
+/* 2. ★ (수정) 메인 UI '틀' (계산기/게임기 본체) */
+.background {
+    height: 100dvh;
+    width: 100vw;
+    min-width: 340px;
+    max-width: 60vh; /* 가로 최대 비율 */
+    margin: auto;
+    
+    border-radius: 25px; /* 둥근 모서리 */
+        
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. 상단 정보 (점수, 시간) */
+.info {
+    width: 100%;
+    max-width: 500px;
+    height: 15vh;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+.round {
+    width: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.round_num {
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.high {
+    width: 100px;
+    text-align: right;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.high_num {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.time-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mode {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 1px;
+}
+.time {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+.textField {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 4. 타이머 바 */
+.timer {
+    margin-bottom: 5px;
+    width: 100%;
+    height: 20%;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+.timer-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #5bfbb8;
+    border-radius: 10px;
+}
+
+.calculator-container {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 500px;
+    max-height: 30vh;
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    
+    
+}
+
+.result-container {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* 8. ★ (수정) 계산 결과 텍스트 */
+.result {
+    font-size: 4rem; /* ★ 텍스트 크기 미세 조정 */
+    font-weight: 700;
+    text-align: center;
+    line-height: 1;
+}
+
+/* 9. ★ (수정) 표현식 컨테이너 */
+.expression-container {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* 10. ★ (수정) 표현식 정렬 */
+.expression {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* ★ 간격 조절 */
+}
+.number {
+    font-family: "Fredoka", sans-serif;
+    font-size: 1.6rem; /* ★ 크기 조절 */
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+
+/* 11. ★ (수정) 연산자 빈칸 (슬롯 디자인) */
+.operator-placeholder {
+    height: 1.6rem; /* ★ 크기 조절 */
+    aspect-ratio: 1 / 1;
+    background-color: #A0A8A0; /* ★ 액정 배경보다 살짝 어둡게 */
+    border-radius: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem; /* ★ 크기 조절 */
+    font-weight: 700;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    
+    /* ★ (수정) '파인' 듯한 느낌 강화 */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- (이하 버튼 부분 대폭 수정) --- */
+.buttons-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+    /* ★ (추가) 버튼 영역을 본체 안으로 매립된 듯한 효과 */
+    padding: 15px;
+    /* background-color: #f5f5f5; 본체보다 살짝 어두운 배경 */
+    border-radius: 15px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.operators {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.btn {
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 15px; /* ★ (수정) 더 둥글게 */
+    font-family: 'Fredoka', sans-serif;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* ★ (수정) Image 1처럼 툭 튀어나온 3D 버튼 효과 */
+    border-bottom: 6px solid; /* 아래쪽 그림자 역할을 하는 진한 테두리 */
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2); /* 버튼 아래 그림자 */
+    position: relative;
+    top: 0;
+}
+
+.btn:active {
+    transform: translateY(3px); /* 눌리면 아래로 살짝 내려가도록 */
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2); /* 눌렸을 때 그림자 조정 */
+    border-bottom: 3px solid; /* 눌렸을 때 테두리 조정 */
+}
+
+/* 각 버튼의 색상과 그림자 색상 조정 */
+.btn-add {
+    background-color: #00D37C; /* 연두색 */
+    border-bottom-color: #00A664; /* 더 진한 연두색 */
+}
+.btn-subtract {
+    background-color: #00dacb; /* 민트색 */
+    border-bottom-color: #00A29A; /* 더 진한 민트색 */
+}
+.btn-divide {
+    background-color: #f7d666; /* 노란색 */
+    border-bottom-color: #CBAF54; /* 더 진한 노란색 */
+}
+.btn-multiply {
+    background-color: #FF8B77; /* 주황색 */
+    border-bottom-color: #CC6F5F; /* 더 진한 주황색 */
+}
+.btn-clear {
+    background-color: #cc7de4; /* 보라색 */
+    border-bottom-color: #A364B8; /* 더 진한 보라색 */
+}
+.btn-hint {
+    background-color: #f0a500; /* 오렌지색 */
+    border-bottom-color: #C08400; /* 더 진한 오렌지색 */
+}
+.ghost { 
+  aspect-ratio: 1 / 1; 
+  visibility: hidden;
+  grid-row: 3;
+  grid-column: 1;
+}
+.btn-submit {
+    grid-column: 1 / 4;
+    grid-row: 3;
+    aspect-ratio: auto;
+    background-color: #ff8fa3; /* 핑크색 */
+    border-bottom-color: #CC7386; /* 더 진한 핑크색 */
+    font-size: 2.5rem;
+    border-radius: 15px; /* ★ (수정) 더 둥글게 */
+}
+
+/* (이하 게임 오버 팝업 스타일 동일) */
+@keyframes flash-green {
+    50% { background-color: #90ee90; }
+}
+@keyframes flash-red {
+    50% { background-color: #ff8fa3; }
+}
+.correct-flash {
+    animation: flash-green 0.5s 2;
+}
+.incorrect-flash {
+    animation: flash-red 0.5s 2;
+}
+.hidden {
+    display: none;
+}
+#game-content-wrapper.blurred {
+    filter: blur(5px);
+    pointer-events: none;
+    transition: filter 0.3s ease-out;
+    z-index: 2;
+}
+.game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+.game-over-overlay.show {
+    display: grid;
+    opacity: 1;
+}
+.game-over-window {
+    width: 328px;
+    height: 250px;
+    background-color: #ffffffbb;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.game-over-text {
+    position: relative;
+    top: -30px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    width: 80%;
+    height: 60px;
+    background-color: #ff4646;
+    color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.score-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: -25px;
+    text-align: center;
+}
+.label {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+.game-score-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FCCF4A;
+    border: 3px solid #E2B73C;
+    border-radius: 15px;
+    padding: 10px 5px;
+    min-width: 90px;
+    height: 80px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #FFFFFF;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+.score-item ,.mode-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E0E0E0;
+    border: 2px solid #C0C0C0;
+    border-radius: 10px;
+    padding: 8px 5px;
+    min-width: 70px;
+    height: 70px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #444;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.popup-buttons {
+    display: flex;
+    gap: 15px;
+}
+.popup-buttons a {
+    text-decoration: none;
+}
+.btn-popup {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    width: 120px;
+    height: 60px;
+    border-radius: 20px;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: grid;
+    place-items: center;
+    transition: transform 0.1s ease-out;
+}
+.btn-popup:active {
+    transform: translateY(3px);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+.btn-home {
+    background: #00DACB;
+}
+.btn-retry {
+    background: #FF8B77;
+}
